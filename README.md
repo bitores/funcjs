@@ -1,1 +1,1 @@
-# disable-func
+# disable
