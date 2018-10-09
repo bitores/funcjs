@@ -26,39 +26,83 @@ function pack(...args) {
   return new Function(...argsArr.join(",").split(','), bodyArr.join("\r\n"))
 }
 
-function disable(func, times) {
+function _handle(func, bodyWraper) {
   if (typeof func !== 'function') throw new Error('The first parameter is not a function.')
 
   let [args, body] = unpack(func)
-
-  let newArgs = args.split(','),
-    newBody = `
-      let _timer = null;
-      return function (){
-        if(_timer===null){
-          _timer = setTimeout(()=>{
-            clearTimeout(_timer);
-            _timer = null;
-            },${times});
-            ${body};
-          }
-      }
-    `;
+  let newArgs = args.split(',');
 
   let ret = [];
   newArgs.map((item) => {
     if (empty_reg.test(item) === false) ret.push(item)
   })
 
-
   if (ret.length > 0)
-    return new Function(...ret, newBody)();
+    return new Function(...ret, bodyWraper(body))();
   else
-    return new Function(newBody)()
+    return new Function(bodyWraper(body))()
+}
+
+function disable(func, ms) {
+
+  let bodyWraper = function (body) {
+    return `
+      let _timer = null;
+      return function (){
+        if(_timer===null){
+          _timer = setTimeout(()=>{
+            clearTimeout(_timer);
+            _timer = null;
+            },${ms});
+            ${body};
+          }
+      }
+    `;
+  }
+
+  return _handle(func, bodyWraper)
+}
+
+function once(func) {
+
+  let bodyWraper = function (body) {
+    return `
+      let f = function (){
+        if(f.called===false){
+            f.called = true;
+            ${body};
+          }
+      }
+      f.called = false;
+      return f;
+    `;
+  }
+
+  return _handle(func, bodyWraper)
+}
+
+function limit(func, times = 1) {
+  let bodyWraper = function (body) {
+    return `
+      let f = function (){
+        if(f.called>0){
+            f.called--;
+            ${body};
+          }
+      }
+      f.called = ${times};
+      return f;
+    `;
+  }
+
+  return _handle(func, bodyWraper)
 }
 
 module.exports = {
   unpack,
   pack,
-  disable
+  disable,
+  once,
+  limit,
+  _handle
 };
