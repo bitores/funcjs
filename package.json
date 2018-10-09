@@ -1,7 +1,7 @@
 {
   "name": "disable-func",
   "version": "1.0.0",
-  "description": "disable the function",
+  "description": "Disable the specified function within a period of time",
   "main": "index.js",
   "scripts": {
     "test": "node test/index.js"
@@ -11,10 +11,11 @@
     "url": "git+https://github.com/bitores/disable-func.git"
   },
   "keywords": [
-    "dialbe",
-    "once",
+    "unpack",
+    "pack",
     "function",
-    "js"
+    "js",
+    "disable"
   ],
   "author": "huangzj",
   "license": "ISC",
