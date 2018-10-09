@@ -29,18 +29,21 @@ function pack(...args) {
 function disable(func, times) {
   if (typeof func !== 'function') throw new Error('The first parameter is not a function.')
 
-  let [args, body] = unpack(func),
-    _timer = null;
+  let [args, body] = unpack(func)
 
   let newArgs = args.split(','),
     newBody = `
-      if(_timer===null){
-      _timer = setTimeout(()=>{
-        clearTimeout(_timer);
-        _timer = null;
-        },${times});
-        ${body};
-      }`;
+      let _timer = null;
+      return function (){
+        if(_timer===null){
+          _timer = setTimeout(()=>{
+            clearTimeout(_timer);
+            _timer = null;
+            },${times});
+            ${body};
+          }
+      }
+    `;
 
   let ret = [];
   newArgs.map((item) => {
@@ -49,9 +52,9 @@ function disable(func, times) {
 
 
   if (ret.length > 0)
-    return new Function(...ret, newBody);
+    return new Function(...ret, newBody)();
   else
-    return new Function(newBody)
+    return new Function(newBody)()
 }
 
 function a() {
