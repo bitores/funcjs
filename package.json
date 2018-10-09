@@ -1,0 +1,25 @@
+{
+  "name": "disable-func",
+  "version": "1.0.0",
+  "description": "disable the function",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitores/disable-func.git"
+  },
+  "keywords": [
+    "dialbe",
+    "once",
+    "function",
+    "js"
+  ],
+  "author": "huangzj",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bitores/disable-func/issues"
+  },
+  "homepage": "https://github.com/bitores/disable-func#readme"
+}
