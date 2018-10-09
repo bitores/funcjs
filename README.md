@@ -1,6 +1,5 @@
-# disable
+# funcjs
 
-> 处理 函数
 
 - unpack：函数解包，分解为 [argument string, function body]
 - pack: 多函数合并，function a + function b = function c

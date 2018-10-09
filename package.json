@@ -1,5 +1,5 @@
 {
-  "name": "disable-func",
+  "name": "@huangzj/funcjs",
   "version": "1.0.0",
   "description": "Disable the specified function within a period of time",
   "main": "index.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bitores/disable-func.git"
+    "url": "git+https://github.com/bitores/funcjs.git"
   },
   "keywords": [
     "unpack",
@@ -20,7 +20,7 @@
   "author": "huangzj",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/bitores/disable-func/issues"
+    "url": "https://github.com/bitores/funcjs/issues"
   },
-  "homepage": "https://github.com/bitores/disable-func#readme"
+  "homepage": "https://github.com/bitores/funcjs#readme"
 }
