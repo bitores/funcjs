@@ -43,7 +43,7 @@ function _handle(func, bodyWraper) {
     return new Function(bodyWraper(body))()
 }
 
-function disable(func, ms) {
+function throttle(func, ms) {
 
   let bodyWraper = function (body) {
     return `
@@ -53,9 +53,30 @@ function disable(func, ms) {
           _timer = setTimeout(()=>{
             clearTimeout(_timer);
             _timer = null;
-            },${ms});
+          },${ms});
+          ${body};
+        }
+      }
+    `;
+  }
+
+  return _handle(func, bodyWraper)
+}
+
+
+function delay(func, ms) {
+
+  let bodyWraper = function (body) {
+    return `
+      let _timer = null;
+      return function (){
+        if(_timer===null){
+          _timer = setTimeout(()=>{
+            clearTimeout(_timer);
+            _timer = null;
             ${body};
-          }
+          },${ms});
+        }
       }
     `;
   }
@@ -101,7 +122,8 @@ function limit(func, times = 1) {
 module.exports = {
   unpack,
   pack,
-  disable,
+  throttle,
+  delay,
   once,
   limit,
   _handle

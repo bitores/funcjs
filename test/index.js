@@ -1,12 +1,20 @@
-let disable = require("./index.js")
+let {
+  throttle,
+  once,
+  limit,
+  delay
+} = require("./index.js")
 
 function a() {
   console.log('a')
 }
 
-dd = disable(a, 5000)
+dd = throttle(a, 500)
 
 console.log(dd.toString())
+
+da = delay(a, 5000)
+
 
 var onceFun = once(a)
 

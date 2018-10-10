@@ -1,6 +1,6 @@
 {
   "name": "@huangzj/funcjs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Disable the specified function within a period of time",
   "main": "index.js",
   "scripts": {
